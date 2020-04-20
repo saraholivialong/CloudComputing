@@ -42,6 +42,7 @@ def post_city(capital):
     rows = session.execute( """Insert into eucities.stats (capital) values ('Metropolis')""")
     return jsonify({'message': 'created: /eucities/{}'.format(capital)}), 201
 
+#This PUT Method adds a country to a capital city record
 @app.route('/eucities/<capital>', methods=['PUT'])
 def put_city(capital):
     rows = session.execute( """Select * From eucities.stats where capital = '{}'""".format(capital))
@@ -50,8 +51,6 @@ def put_city(capital):
             return jsonify({'error':'you cannot update a city which does not exist'}), 400
     rows = session.execute( """Update eucities.stats set name ='Genovia' where capital ='{}'""".format(capital))
     return jsonify({'message':'updated: /eucities/{}'.format(capital)}), 201
-
-#This PUT Method adds a country to a capital city record
 
 if __name__=="__main__":
     app.run(host='0.0.0.0', port=80)
